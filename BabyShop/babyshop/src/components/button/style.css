@@ -1,0 +1,19 @@
+.btn {
+  width: 100%;
+  color: white;
+}
+
+.primaryColor {
+  background-color: black;
+}
+.primaryColor:hover {
+  background-color: white;
+  border: 1px solid black;
+}
+.secondaryColor {
+  background-color: red;
+}
+.whiteColor {
+  background-color: white;
+  color: black;
+}

@@ -1,0 +1,31 @@
+.container-nav {
+  background-color: transparent;
+  color: white;
+}
+.img-logo {
+  width: 60px;
+  height: 55px;
+}
+.navbar-brand {
+  font-style: italic;
+  font-weight: bolder;
+}
+.form-control {
+  width: 350px;
+  background-color: transparent;
+  border: 1px solid black;
+}
+.login-img {
+  border-radius: 50px;
+  width: 55px;
+  padding-left: 10px;
+}
+.login-name {
+  font-size: small;
+  text-decoration: none;
+  font-style: normal;
+  color: black;
+  text-transform: uppercase;
+  padding-left: 6px;
+  cursor: pointer;
+}
