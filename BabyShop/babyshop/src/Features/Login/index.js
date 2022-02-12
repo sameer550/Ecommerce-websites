@@ -12,6 +12,7 @@ const Login = () => {
     userpassword: "",
   });
   const [formErrors, setFormErrors] = useState({});
+  const [isLogin, setIsLogin] = useState(true);
   const saveUserDetails = (e) => {
     const { name, value } = e.target;
     setUserDetails((prevValue) => {
@@ -20,18 +21,11 @@ const Login = () => {
   };
   const validate = (values) => {
     const errors = {};
-    const regex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
     if (!values.userEmail) {
       errors.userEmail = "Email address is required!";
-    } else if (!values.userEmail.match(regex)) {
-      errors.userEmail = "Email address is not valid!";
     }
     if (!values.userpassword) {
       errors.userpassword = "Password is required!";
-    } else if (values.userpassword.length < 4) {
-      errors.userpassword = "Password must be more 4 characters";
-    } else if (values.userpassword.length > 10) {
-      errors.userpassword = "Password cannot be exceed more than 10 characters";
     }
     return errors;
   };
@@ -47,22 +41,26 @@ const Login = () => {
             "loginUser",
             JSON.stringify({ email, name: firstName + " " + lastName })
           );
+          setIsLogin(true);
           navigate("/");
         } else {
-          alert("Password is incorrect");
+          setIsLogin(false);
         }
       } else {
-        alert("Email is incorrect");
+        setIsLogin(false);
       }
     });
+    if (isLogin === false) {
+      alert("Email or password not found");
+    }
   };
+
   useEffect(() => {
     if (localStorage.getItem("loginUser") !== null) {
       console.log("Log In");
       navigate("/");
     }
   }, []);
-
   return (
     <>
       <Nav />

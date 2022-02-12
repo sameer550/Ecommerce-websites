@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Button from "../../components/button";
 import Nav from "../../components/nabvar";
 import Foot from "../../components/footer";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [createUser, setCreateUser] = useState({
     firstName: "",
@@ -11,7 +12,7 @@ const Signup = () => {
     userEmail: "",
     userpassword: "",
   });
-
+  const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   //const [paravalues, setParavalues] = useState("");
@@ -57,17 +58,13 @@ const Signup = () => {
       formData.push(createUser);
       localStorage.setItem("dataUser", JSON.stringify(formData));
     }
-    // setIsSubmit(true);
-    // alert("hello");
   };
 
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     localStorage.setItem("userId", JSON.stringify(createUser));
-  //     console.log(JSON.parse(localStorage.getItem("userId")));
-  //   }
-  // }, [formErrors]);
+  useEffect(() => {
+    if (localStorage.getItem("loginUser") !== null) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>

@@ -39,14 +39,14 @@ const Home = () => {
   ]);
   const [featureProducts, setfeaturesProduct] = useState([
     {
-      id: 1,
+      id: 4,
       imgSrc: Feature1,
       name: "BOYS SWEATSHIRT HAVE A NICE NAVY",
       price: 1000,
       discount: 800,
     },
     {
-      id: 2,
+      id: 5,
       imgSrc: Feature2,
       name: "GIRLS SWEATSHIRT HAVE A NICE NAVY",
       price: 2000,
@@ -109,7 +109,7 @@ const Home = () => {
                 <div className="col-3">
                   <div className="my-2 px-1">
                     <Card
-                      key={id}
+                      key={id.toString()}
                       imgSrc={imgSrc}
                       // name={desc}
                       price={price}
@@ -130,7 +130,7 @@ const Home = () => {
             return (
               <div className="col-3">
                 <div className="my-2    ">
-                  <Tiles key={id} imgSrc={imgSrc} label={label} />
+                  <Tiles key={id.toString()} imgSrc={imgSrc} label={label} />
                 </div>
               </div>
             );
@@ -144,7 +144,12 @@ const Home = () => {
             return (
               <div className="col-4">
                 <div className="p-1">
-                  <Card key={id} name={name} desc={desc} imgSrc={imgSrc} />
+                  <Card
+                    key={id.toString()}
+                    name={name}
+                    desc={desc}
+                    imgSrc={imgSrc}
+                  />
                 </div>
               </div>
             );
