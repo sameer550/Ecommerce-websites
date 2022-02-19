@@ -5,12 +5,16 @@ import Nav from "../../components/nabvar";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import Foot from "../../components/footer";
+import axios from "axios";
+
 const Login = () => {
+  const [resp, setResp] = useState();
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
     userEmail: "",
     userpassword: "",
   });
+
   const [formErrors, setFormErrors] = useState({});
   const [isLogin, setIsLogin] = useState(true);
   const saveUserDetails = (e) => {
@@ -41,8 +45,8 @@ const Login = () => {
             "loginUser",
             JSON.stringify({ email, name: firstName + " " + lastName })
           );
-          setIsLogin(true);
           navigate("/");
+          setIsLogin(true);
         } else {
           setIsLogin(false);
         }
@@ -53,6 +57,29 @@ const Login = () => {
     if (isLogin === false) {
       alert("Email or password not found");
     }
+  };
+
+  const check = () => {
+    axios
+      .get(`http://localhost:4000/api/v1/users`)
+      .then((response) => {
+        console.log(response.data);
+        setResp(response.data);
+        // setChk(res.data);
+        // console.log(chk);
+        // setChk(res.data.name + " " + res.data.email);
+        // console.log(chk);
+
+        // const users = res.data;
+        // const data = JSON.stringify(users);
+        // data.map(({ email, password }) => {
+        //   console.log("email =", email);
+        //   console.log("password", password);
+        // });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -97,6 +124,13 @@ const Login = () => {
                     text={"Login"}
                     buttonColor={"primaryColor"}
                     onclick={buttonClick}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Button
+                    text={"API"}
+                    buttonColor={"primaryColor"}
+                    onclick={check}
                   />
                 </div>
               </div>

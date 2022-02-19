@@ -6,7 +6,7 @@ const Card = ({ imgSrc, desc, price, discount, name }) => {
       <div className="card-container">
         <div className="card-head">
           <div className="card-img">
-            <img src={imgSrc} class="card-img-top" alt="logo" />
+            <img src={imgSrc} className="card-img-top" alt="logo" />
           </div>
           <div className="card-body">
             {price != undefined && (

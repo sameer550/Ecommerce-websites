@@ -5,12 +5,13 @@ import Button from "../../components/button";
 import Nav from "../../components/nabvar";
 import Foot from "../../components/footer";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const Signup = () => {
   const [createUser, setCreateUser] = useState({
     firstName: "",
     lastName: "",
-    userEmail: "",
-    userpassword: "",
+    email: "",
+    password: "",
   });
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
@@ -25,17 +26,17 @@ const Signup = () => {
   const validate = (values) => {
     const errors = {};
     const regex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (!values.userEmail) {
-      errors.userEmail = "Email address is required!";
-    } else if (!values.userEmail.match(regex)) {
-      errors.userEmail = "Email address is not valid!";
+    if (!values.email) {
+      errors.email = "Email address is required!";
+    } else if (!values.email.match(regex)) {
+      errors.email = "Email address is not valid!";
     }
-    if (!values.userpassword) {
-      errors.userpassword = "Password is required!";
-    } else if (values.userpassword.length < 4) {
-      errors.userpassword = "Password must be more 4 characters";
-    } else if (values.userpassword.length > 10) {
-      errors.userpassword = "Password cannot be exceed more than 10 characters";
+    if (!values.password) {
+      errors.password = "Password is required!";
+    } else if (values.password.length < 4) {
+      errors.password = "Password must be more 4 characters";
+    } else if (values.password.length > 10) {
+      errors.password = "Password cannot be exceed more than 10 characters";
     }
     if (!values.firstName) {
       errors.firstName = "This must been filled";
@@ -48,16 +49,23 @@ const Signup = () => {
 
   const buttonClick = () => {
     setFormErrors(validate(createUser));
-    let formData = [];
-    if (Object.keys(validate(createUser)).length === 0) {
-      formData = JSON.parse(localStorage.getItem("dataUser"));
-      console.log("form data", formData);
-      if (formData == null) {
-        formData = [];
-      }
-      formData.push(createUser);
-      localStorage.setItem("dataUser", JSON.stringify(formData));
-    }
+    console.log("user", createUser);
+    // fetch("http://localhost:4000/api/v1/users", {
+    //   method: "POST",
+    //   body: JSON.stringify(createUser),
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8",
+    //   },
+    // })
+
+    axios
+      .post("http://localhost:4000/api/v1/users", createUser)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -100,20 +108,20 @@ const Signup = () => {
                     type="text"
                     placeholder="Enter email"
                     id="signupEmail"
-                    name="userEmail"
+                    name="email"
                     onChange={saveCreateuser}
                   />
-                  <p className="error-message">{formErrors.userEmail}</p>
+                  <p className="error-message">{formErrors.email}</p>
                 </div>
                 <div className="forms-inputs mb-4">
                   <input
                     type="password"
                     placeholder="Password"
                     id="signupPassword"
-                    name="userpassword"
+                    name="password"
                     onChange={saveCreateuser}
                   />
-                  <p className="error-message">{formErrors.userpassword}</p>
+                  <p className="error-message">{formErrors.password}</p>
                 </div>
 
                 <div className="mb-3">
