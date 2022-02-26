@@ -1,17 +1,27 @@
 import React from "react";
 import Home from "../Home";
 import NotFound from "../NotFound";
-import Login from "../Login";
-import Signup from "../signup";
-import { Route, Routes as Switch, BrowserRouter } from "react-router-dom";
+import {
+  Route,
+  Routes as Switch,
+  BrowserRouter,
+  Navigate,
+} from "react-router-dom";
+import { routeConfig } from "../Routes/routeConfig";
 const NewRouter = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" element={<Home />} />
         <Route path="*" element={<NotFound />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/signup" element={<Signup />} />
+        {routeConfig.map(({ path, Component }, index) => {
+          if (!localStorage.getItem("loginUser")) {
+            return <Route path="/" element={<Navigate replace to="/" />} />;
+          }
+          return (
+            <Route path={path} key={index} element={<Component />}></Route>
+          );
+        })}
       </Switch>
     </BrowserRouter>
   );
