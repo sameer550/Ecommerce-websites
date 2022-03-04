@@ -16,11 +16,18 @@ const NewRouter = () => {
         <Route path="*" element={<NotFound />} />
         {routeConfig.map(({ path, Component }, index) => {
           if (!localStorage.getItem("loginUser")) {
-            return <Route path="/" element={<Navigate replace to="/" />} />;
+            return (
+              <Route path={path} key={index} element={<Component />}></Route>
+            );
+            //return <Route path="/" element={<Navigate replace to="/" />} />;
+          } else {
+            if (path === "login" || path === "signup") {
+              return <Route path="/" element={<Navigate replace to="/" />} />;
+            }
           }
-          return (
-            <Route path={path} key={index} element={<Component />}></Route>
-          );
+          // return (
+          //   <Route path={path} key={index} element={<Component />}></Route>
+          // );
         })}
       </Switch>
     </BrowserRouter>

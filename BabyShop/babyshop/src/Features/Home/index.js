@@ -15,6 +15,7 @@ import Foot from "../../components/footer";
 import Card from "../../components/Card";
 import Divider from "../../components/divider";
 import Clothes from "../../components/Clothes";
+import Carousel from "../../components/Carousel";
 import { useState } from "react";
 //import { useNavigate } from "react-router-dom";
 const Home = () => {
@@ -101,8 +102,8 @@ const Home = () => {
     <div>
       <Nav />
 
-      <img src={Sale} alt="logo" width={"100%"} />
-      <Clothes />
+      {/* <img src={Sale} alt="logo" width={"100%"} /> */}
+      <Carousel />
       <Divider />
 
       <div className="container">

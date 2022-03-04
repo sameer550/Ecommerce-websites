@@ -15,8 +15,9 @@ import Cloth11 from "../../assets/img/Cloth11.jpg";
 import Cloth12 from "../../assets/img/Cloth12.jpg";
 import Card from "../Card";
 import { useState } from "react";
-import Filter from "../Filter";
-
+import Filteration from "../filteration";
+import Nav from "../nabvar";
+import Foot from "../footer";
 const Clothes = () => {
   const [clothProducts] = useState([
     {
@@ -93,77 +94,64 @@ const Clothes = () => {
     },
   ]);
   return (
-    <div className="main_content">
-      <div className="search">
-        <Divider />
-        <h5>PRICES</h5>
-        <div className="option">
-          <Divider />
-          <h6>PRODUCT TYPE</h6>
-          <Filter name={"Baby Clothes"} />
-          <Filter name={"Boys Clothes"} />
-          <Filter name={"Boys Bottom"} />
-          <Filter name={"Girls Apparel"} />
-          <Filter name={"Girls bottom"} />
-          <Divider />
-          <h6>SIZE</h6>
-          <Filter name={"Small"} />
-          <Filter name={"Medium"} />
-          <Filter name={"Large"} />
-          <Filter name={"X-Large"} />
-          <Filter name={"0-3M"} />
+    <>
+      <Nav />
+      <Divider />
+      {/* <h1 className="header-title">Kid Clothes</h1> */}
+      <div className="main_content">
+        <div className="search">
+          <Filteration />
         </div>
-      </div>
-      <div className="container1 ">
-        <Divider />
-        <h1 className="header-title">Kid Clothes</h1>
-        <p className="message-header">
-          For a traditional look, try out the Bachaa Party range of kids Kurta
-          and boys Shalwar suits. With a range of colors and styles, Bachaa
-          Party brings a range of traditional and modern styles for both comfort
-          and style. At Bachaa Party, we've got sales happening all the time for
-          our Kurta and Shalwar Kameez.
-        </p>
 
-        <div className="filter">
-          <div className="quantity">
-            <h5>811 product</h5>
+        <div className="container1 ">
+          <p className="message-header">
+            For a traditional look, try out the Bachaa Party range of kids Kurta
+            and boys Shalwar suits. With a range of colors and styles, Bachaa
+            Party brings a range of traditional and modern styles for both
+            comfort and style. At Bachaa Party, we've got sales happening all
+            the time for our Kurta and Shalwar Kameez.
+          </p>
+
+          <div className="filter">
+            <div className="quantity">
+              <h6>811 product</h6>
+            </div>
+            <div className="Select">
+              <select className="Selection">
+                <option>Featured</option>
+                <option>Sort</option>
+                <option>Best selling</option>
+                <option>Alphabetically A -Z</option>
+                <option>Alphabetically Z- A</option>
+              </select>
+            </div>
           </div>
-          <div className="Select">
-            <select className="Selection">
-              <option>Featured</option>
-              <option>Sort</option>
-              <option>Best selling</option>
-              <option>Alphabetically A -Z</option>
-              <option>Alphabetically Z- A</option>
-            </select>
-          </div>
-        </div>
-        <div className="product">
-          <div className="row">
-            {clothProducts.map(
-              ({ id, imgSrc, price, discount, name }, index) => {
-                return (
-                  <div className="col-3">
-                    <div className="my-2 px-1 ">
-                      <Card
-                        key={index}
-                        imgSrc={imgSrc}
-                        price={price}
-                        discount={discount}
-                        name={name}
-                      />
+          <div className="product">
+            <div className="row">
+              {clothProducts.map(
+                ({ id, imgSrc, price, discount, name }, index) => {
+                  return (
+                    <div className="col-3">
+                      <div className="my-2 px-1 ">
+                        <Card
+                          key={index}
+                          imgSrc={imgSrc}
+                          price={price}
+                          discount={discount}
+                          name={name}
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              }
-            )}
+                  );
+                }
+              )}
+            </div>
           </div>
+          <Divider />
         </div>
-
-        <Divider />
       </div>
-    </div>
+      <Foot />
+    </>
   );
 };
 

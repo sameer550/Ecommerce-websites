@@ -95,11 +95,6 @@ const Login = () => {
       navigate("/");
     }
   }, []);
-  // useEffect((chk) => {
-  //   if (chk) {
-  //     alert("hellow");
-  //   }
-  // });
   return (
     <>
       <Nav />

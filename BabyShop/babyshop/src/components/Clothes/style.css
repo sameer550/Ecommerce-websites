@@ -33,7 +33,13 @@
   width: 83%;
 }
 .search {
-  width: 17%;
+  width: 16%;
+  position: sticky;
+  padding-left: 22px;
+  top: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
+  margin-top: 8px;
 }
 .main_content {
   display: flex;
@@ -43,4 +49,7 @@
 }
 .option {
   margin-left: 15px;
+}
+.quantity {
+  margin-left: 18px;
 }

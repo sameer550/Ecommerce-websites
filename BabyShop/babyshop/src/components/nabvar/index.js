@@ -21,10 +21,18 @@ const Nav = () => {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ">
-              //me-auto
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
                   Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/clothes"
+                >
+                  Clothes
                 </Link>
               </li>
               <li className="nav-item">

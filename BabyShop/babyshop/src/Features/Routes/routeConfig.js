@@ -1,5 +1,6 @@
 import Login from "../Login";
 import Signup from "../signup";
+import Clothes from "../../components/Clothes";
 export const routeConfig = [
   {
     path: "login",
@@ -10,5 +11,10 @@ export const routeConfig = [
     path: "signup",
     name: "user signup",
     Component: Signup,
+  },
+  {
+    path: "clothes",
+    name: "kid clothes",
+    Component: Clothes,
   },
 ];
