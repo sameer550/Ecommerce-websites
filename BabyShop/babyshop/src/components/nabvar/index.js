@@ -20,7 +20,8 @@ const Nav = () => {
           </a>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul className="navbar-nav ">
+              //me-auto
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
                   Home
@@ -34,22 +35,18 @@ const Nav = () => {
                     </Link>
                   </>
                 ) : (
-                  <>
-                    <Button
-                      buttonColor="whiteColor"
-                      text="Logout"
-                      onclick={logoutButton}
-                    />
-                  </>
+                  <></>
                 )}
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/signup"}>
-                  Signup
-                </Link>
-              </li>
+              {localStorage.getItem("loginUser") == null && (
+                <li className="nav-item">
+                  <Link className="nav-link" to={"/signup"}>
+                    Signup
+                  </Link>
+                </li>
+              )}
             </ul>
-            <form className="d-flex ">
+            <form className="d-flex search-bar">
               <input
                 className="form-control me-0"
                 type="search"
@@ -61,11 +58,20 @@ const Nav = () => {
           </div>
           {localStorage.getItem("loginUser") !== null ? (
             <>
-              <div className="navbar-brand login-details" href="#">
-                <img className="img-logo login-img" src={LoginImg} alt="logo" />
-                <a className="login-name">
-                  {JSON.parse(localStorage.getItem("loginUser")).name}
-                </a>
+              <div className="dropdown">
+                <div className="dropbtn">
+                  <Button
+                    text={JSON.parse(localStorage.getItem("loginUser")).name}
+                    buttonColor={"primaryColor"}
+                  />
+                </div>
+                <div className="dropdown-content">
+                  <a className="btnLogout" onClick={logoutButton}>
+                    Logout
+                  </a>
+                  {/* <a href="#">Link 2</a>
+                  <a href="#">Link 3</a> */}
+                </div>
               </div>
             </>
           ) : (

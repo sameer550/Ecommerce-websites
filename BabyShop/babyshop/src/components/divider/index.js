@@ -3,7 +3,7 @@ const Divider = () => {
   return (
     <div>
       <p className="gap1"></p>
-      <hr class="solid"></hr>
+      <hr className="solid"></hr>
       <p className="gap"></p>
     </div>
   );

@@ -14,6 +14,7 @@ import Feature2 from "../../assets/img/jacket.jpg";
 import Foot from "../../components/footer";
 import Card from "../../components/Card";
 import Divider from "../../components/divider";
+import Clothes from "../../components/Clothes";
 import { useState } from "react";
 //import { useNavigate } from "react-router-dom";
 const Home = () => {
@@ -39,14 +40,14 @@ const Home = () => {
   ]);
   const [featureProducts, setfeaturesProduct] = useState([
     {
-      id: 1,
+      id: 4,
       imgSrc: Feature1,
       name: "BOYS SWEATSHIRT HAVE A NICE NAVY",
       price: 1000,
       discount: 800,
     },
     {
-      id: 2,
+      id: 5,
       imgSrc: Feature2,
       name: "GIRLS SWEATSHIRT HAVE A NICE NAVY",
       price: 2000,
@@ -99,28 +100,28 @@ const Home = () => {
   return (
     <div>
       <Nav />
+
       <img src={Sale} alt="logo" width={"100%"} />
+      <Clothes />
       <Divider />
+
       <div className="container">
         <div className="row">
-          {featureProducts.map(
-            ({ id, imgSrc, desc, price, discount, name }) => {
-              return (
-                <div className="col-3">
-                  <div className="my-2 px-1">
-                    <Card
-                      key={id}
-                      imgSrc={imgSrc}
-                      // name={desc}
-                      price={price}
-                      discount={discount}
-                      name={name}
-                    />
-                  </div>
+          {featureProducts.map(({ id, imgSrc, price, discount, name }) => {
+            return (
+              <div className="col-3">
+                <div className="my-2 px-1">
+                  <Card
+                    key={id}
+                    imgSrc={imgSrc}
+                    price={price}
+                    discount={discount}
+                    name={name}
+                  />
                 </div>
-              );
-            }
-          )}
+              </div>
+            );
+          })}
         </div>
       </div>
       <Divider />
