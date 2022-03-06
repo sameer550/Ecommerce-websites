@@ -14,6 +14,8 @@ import Feature2 from "../../assets/img/jacket.jpg";
 import Foot from "../../components/footer";
 import Card from "../../components/Card";
 import Divider from "../../components/divider";
+import Clothes from "../../components/Clothes";
+import Carousel from "../../components/Carousel";
 import { useState } from "react";
 //import { useNavigate } from "react-router-dom";
 const Home = () => {
@@ -99,28 +101,28 @@ const Home = () => {
   return (
     <div>
       <Nav />
-      <img src={Sale} alt="logo" width={"100%"} />
+
+      {/* <img src={Sale} alt="logo" width={"100%"} /> */}
+      <Carousel />
       <Divider />
+
       <div className="container">
         <div className="row">
-          {featureProducts.map(
-            ({ id, imgSrc, desc, price, discount, name }) => {
-              return (
-                <div className="col-3">
-                  <div className="my-2 px-1">
-                    <Card
-                      key={id.toString()}
-                      imgSrc={imgSrc}
-                      // name={desc}
-                      price={price}
-                      discount={discount}
-                      name={name}
-                    />
-                  </div>
+          {featureProducts.map(({ id, imgSrc, price, discount, name }) => {
+            return (
+              <div className="col-3">
+                <div className="my-2 px-1">
+                  <Card
+                    key={id}
+                    imgSrc={imgSrc}
+                    price={price}
+                    discount={discount}
+                    name={name}
+                  />
                 </div>
-              );
-            }
-          )}
+              </div>
+            );
+          })}
         </div>
       </div>
       <Divider />
@@ -130,7 +132,7 @@ const Home = () => {
             return (
               <div className="col-3">
                 <div className="my-2    ">
-                  <Tiles key={id.toString()} imgSrc={imgSrc} label={label} />
+                  <Tiles key={id} imgSrc={imgSrc} label={label} />
                 </div>
               </div>
             );
@@ -144,12 +146,7 @@ const Home = () => {
             return (
               <div className="col-4">
                 <div className="p-1">
-                  <Card
-                    key={id.toString()}
-                    name={name}
-                    desc={desc}
-                    imgSrc={imgSrc}
-                  />
+                  <Card key={id} name={name} desc={desc} imgSrc={imgSrc} />
                 </div>
               </div>
             );
