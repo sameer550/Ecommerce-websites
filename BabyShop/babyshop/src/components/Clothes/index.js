@@ -147,9 +147,9 @@ const Clothes = () => {
               )}
             </div>
           </div>
-          <Divider />
         </div>
       </div>
+      <Divider />
       <Foot />
     </>
   );
