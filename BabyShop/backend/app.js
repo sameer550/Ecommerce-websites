@@ -27,7 +27,7 @@ mongoose.connect(
 // view engine setup
 
 app.use(bodyParser.json());
-app.use("/api/v1/users", userRegistrationRoutes.router);
+app.use("/api/v1/auth", userRegistrationRoutes.router);
 
 app.get("/", (req, res) => {
   res.send("done");
