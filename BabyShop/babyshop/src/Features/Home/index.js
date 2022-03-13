@@ -1,5 +1,4 @@
 import Nav from "../../components/nabvar";
-import Sale from "../../assets/img/wintersale.jpg";
 import Tiles from "../../components/tiles";
 import Footer1 from "../../assets/img/footer1.jpg";
 import Footer2 from "../../assets/img/footer2.jpg";
@@ -11,12 +10,16 @@ import Tiles4 from "../../assets/img/tiles4.jpg";
 import Tiles5 from "../../assets/img/tiles5.jpg";
 import Feature1 from "../../assets/img/shirts.jpg";
 import Feature2 from "../../assets/img/jacket.jpg";
+import Feature3 from "../../assets/img/Cloth9.jpg";
+import Feature4 from "../../assets/img/Cloth10.jpg";
+import Feature5 from "../../assets/img/Cloth13.jpg";
 import Foot from "../../components/footer";
 import Card from "../../components/Card";
 import Divider from "../../components/divider";
 import Clothes from "../../components/Clothes";
 import Carousel from "../../components/Carousel";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 //import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [card1Products, setcard1Product] = useState([
@@ -49,10 +52,24 @@ const Home = () => {
     },
     {
       id: 5,
-      imgSrc: Feature2,
-      name: "GIRLS SWEATSHIRT HAVE A NICE NAVY",
-      price: 2000,
-      discount: 1899,
+      imgSrc: Feature5,
+      name: "INFANT GIRLS EMBROIDED KURTI BLOSSOMING",
+      price: 1800,
+      discount: 1199,
+    },
+    {
+      id: 6,
+      imgSrc: Feature3,
+      name: "CUP CAKE GIRLS DIGITAL PRINT CASUAL",
+      price: 1700,
+      discount: 1500,
+    },
+    {
+      id: 7,
+      imgSrc: Feature4,
+      name: "CUP CAKE GIRLS DIGITAL PRINT CASUAL",
+      price: 1700,
+      discount: 1500,
     },
   ]);
   const [tilesProducts, settilesProduct] = useState([
@@ -97,6 +114,8 @@ const Home = () => {
       label: "baby care",
     },
   ]);
+  const det = useSelector((state) => state.userDetailsReducer);
+  console.log(det);
 
   return (
     <div>
@@ -126,12 +145,13 @@ const Home = () => {
         </div>
       </div>
       <Divider />
-      <div className="container">
-        <div className="row">
+      <div>
+        <h2 className="text-center">SHOP BY CATEGORY</h2>
+        <div className="row w-100">
           {tilesProducts.map(({ id, imgSrc, label }) => {
             return (
               <div className="col-3">
-                <div className="my-2    ">
+                <div className="my-3">
                   <Tiles key={id} imgSrc={imgSrc} label={label} />
                 </div>
               </div>

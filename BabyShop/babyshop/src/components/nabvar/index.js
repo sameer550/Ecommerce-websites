@@ -1,13 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../button";
 import "./style.css";
 import Logo from "../../assets/img/logo.png";
 import LoginImg from "../../assets/img/login.png";
+import { useSelector } from "react-redux";
 const Nav = () => {
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.userDetailsReducer);
   const logoutButton = () => {
-    localStorage.removeItem("loginUser");
-    window.location.reload();
+    localStorage.removeItem("persist:user");
+    navigate("/");
   };
 
   return (
@@ -16,7 +19,7 @@ const Nav = () => {
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
             <img className="img-logo" src={Logo} alt="logo" />
-            BachaParty
+            Baby Shop
           </a>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -36,7 +39,7 @@ const Nav = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                {localStorage.getItem("loginUser") == null ? (
+                {user.name === "" ? (
                   <>
                     <Link className="nav-link" to="/login">
                       Login
@@ -46,13 +49,6 @@ const Nav = () => {
                   <></>
                 )}
               </li>
-              {localStorage.getItem("loginUser") == null && (
-                <li className="nav-item">
-                  <Link className="nav-link" to={"/signup"}>
-                    Signup
-                  </Link>
-                </li>
-              )}
             </ul>
             <form className="d-flex search-bar">
               <input
@@ -64,22 +60,39 @@ const Nav = () => {
               <Button text={"Search"} buttonColor={"primaryColor"} />
             </form>
           </div>
-          {localStorage.getItem("loginUser") !== null ? (
+          {user.name !== "" ? (
             <>
-              <div className="dropdown">
+              {/* <div className="dropdown">
                 <div className="dropbtn">
-                  <Button
-                    text={JSON.parse(localStorage.getItem("loginUser")).name}
-                    buttonColor={"primaryColor"}
-                  />
+                  <Button text={data.name} buttonColor={"primaryColor"} />
                 </div>
                 <div className="dropdown-content">
                   <a className="btnLogout" onClick={logoutButton}>
                     Logout
                   </a>
-                  {/* <a href="#">Link 2</a>
-                  <a href="#">Link 3</a> */}
                 </div>
+              </div> */}
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  buttonColor={"primaryColor"}
+                >
+                  {user.name}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <div className="dropdown-content">
+                      <a className="btnLogout" onClick={logoutButton}>
+                        Logout
+                      </a>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </>
           ) : (

@@ -2,19 +2,20 @@ import "./style.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import Nav from "../../components/nabvar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import Foot from "../../components/footer";
 import axios from "axios";
-
+import { useSelector, useDispatch } from "react-redux";
+import { userDetails1 } from "../../Redux/Actions/userDetails.action";
 const Login = () => {
-  const [resp, setResp] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
   });
-
+  const dispatch = useDispatch();
   const [formErrors, setFormErrors] = useState({});
   const saveUserDetails = (e) => {
     const { name, value } = e.target;
@@ -36,65 +37,35 @@ const Login = () => {
     setFormErrors(validate(userDetails));
     let email = userDetails.email;
     let password = userDetails.password;
-
-    // const obj = JSON.parse(localStorage.getItem("dataUser"));
-    console.log("userDetail", userDetails);
     if (email == "" || password == "") {
-      alert("please filled fields");
     } else {
-      localStorage.setItem("userLogin", { email });
       axios
-        .setItem()
-        .get(
-          `http://localhost:4000/api/v1/users?email=${email}&&password=${password}`
-        )
+        .post(`http://localhost:4000/api/v1/auth/login`, userDetails)
         .then((response) => {
-          console.log("Response", response);
+          console.log(response);
+          const {
+            data: { firstName, email, _id },
+          } = response.data;
+          const detailsUser = {
+            name: firstName,
+            email,
+            id: _id,
+          };
+          dispatch(userDetails1(detailsUser));
           navigate("/");
         })
-        .catch((err, response) => {
-          console.log("error", err);
-          if (response.status(404)) {
-            alert("Sorry email or id not found");
+        .catch((err) => {
+          const {
+            status,
+            data: { message },
+          } = err.response;
+          if (status === 404) {
+            setErrorMessage(message);
           }
         });
     }
-
-    // fetch("http://localhost:4000/api/v1/users",{
-    //   method:"GET",
-    //   body:JSON.stringify(userDetails)
-    // }).then((response)=>{
-    //   console.log("reponse",response)
-    // }
-    // ).catch((err)=>{
-    //       console.log("error",err)
-    //   })
-    //   obj.map(({ email, userpassword, firstName, lastName }) => {
-    //     if (email === email) {
-    //       if (password === userpassword) {
-    //         localStorage.setItem(
-    //           "loginUser",
-    //           JSON.stringify({el, name: firstName + " " + lastName })
-    //         );
-    //         navigate("/");
-    //         setIsLogin(true);
-    //       } else {
-    //         setIsLogin(false);
-    //       }
-    //     } else {
-    //       setIsn(false);
-    //     }
-    //   });
-    //   if (isLogin === false) {
-    //     alert("Email or password nound");
-    //   }
   };
-  useEffect(() => {
-    if (localStorage.getItem("loginUser") !== null) {
-      console.log("Log In");
-      navigate("/");
-    }
-  }, []);
+
   return (
     <>
       <Nav />
@@ -133,6 +104,15 @@ const Login = () => {
                     onclick={buttonClick}
                   />
                 </div>
+                <div className="btnSign">
+                  <p className="error-message  ">{errorMessage}</p>
+                </div>
+                <div className="btnSign">
+                  <Link className="btnSignup" to="/signup">
+                    Create an account
+                  </Link>
+                </div>
+                {/* <div className="alert alert-danger" role="alert"></div> */}
               </div>
             </div>
           </div>

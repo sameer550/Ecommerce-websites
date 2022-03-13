@@ -1,10 +1,14 @@
 import { combineReducers } from "redux";
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
+import userDetailsReducer from "./userDetails.reducer";
 const persistConfig = {
-  rooot: "loginData",
+  key: "user",
   storage,
 };
-const reducer = combineReducers({});
-const persistReducer = persistReducer(persistConfig, reducer);
-export default persistReducer;
+const reducer = combineReducers({
+  userDetailsReducer,
+});
+
+const persistreducer = persistReducer(persistConfig, reducer);
+export default persistreducer;

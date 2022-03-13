@@ -21,10 +21,6 @@
 .card-container:hover .p-absolute {
   display: block;
 }
-.prices {
-  /* display: flex;
-  justify-content: center; */
-}
 
 .save {
   color: red;

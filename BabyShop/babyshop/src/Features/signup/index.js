@@ -15,8 +15,6 @@ const Signup = () => {
   });
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  //const [paravalues, setParavalues] = useState("");
   const saveCreateuser = (e) => {
     const { name, value } = e.target;
     setCreateUser((prevValue) => {
@@ -59,9 +57,10 @@ const Signup = () => {
     // })
 
     axios
-      .post("http://localhost:4000/api/v1/users", createUser)
+      .post("http://localhost:4000/api/v1/auth/signup", createUser)
       .then((response) => {
         console.log(response);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

@@ -50,3 +50,13 @@
 .error-message {
   color: red;
 }
+.btnSignup {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.btnSign {
+  text-align: center;
+}
+.msg {
+  text-align: center;
+}
