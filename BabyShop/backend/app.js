@@ -1,6 +1,8 @@
 var express = require("express");
 const mongoose = require("mongoose");
 const userRegistrationRoutes = require("./routes/userRegistration.routes");
+const categoryRoutes = require("./routes/category.routes");
+
 const bodyParser = require("body-parser");
 
 // var cors = require("cors");
@@ -17,6 +19,7 @@ mongoose.connect(
 
 app.use(bodyParser.json());
 app.use("/api/v1/users", userRegistrationRoutes.router);
+app.use("/api/v1/category", categoryRoutes.router);
 
 app.get("/", (req, res) => {
   res.send("done");
