@@ -4,4 +4,12 @@ const post = (data) => {
   return model.save();
 };
 
-module.exports = { post };
+const getByEmail = (email, password) => {
+  return userModel.findOne({ email, password });
+};
+
+const get = () => {
+  return userModel.find();
+};
+
+module.exports = { post, getByEmail, get };
