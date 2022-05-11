@@ -3,11 +3,6 @@ import Tiles from "../../components/tiles";
 import Footer1 from "../../assets/img/footer1.jpg";
 import Footer2 from "../../assets/img/footer2.jpg";
 import Footer3 from "../../assets/img/footer3.jpg";
-import Tiles1 from "../../assets/img/tiles1.jpg";
-import Tiles2 from "../../assets/img/tiles2.jpg";
-import Tiles3 from "../../assets/img/tiles3.jpg";
-import Tiles4 from "../../assets/img/tiles4.jpg";
-import Tiles5 from "../../assets/img/tiles5.jpg";
 import Feature1 from "../../assets/img/shirts.jpg";
 import Feature2 from "../../assets/img/jacket.jpg";
 import Feature3 from "../../assets/img/Cloth9.jpg";
@@ -16,11 +11,12 @@ import Feature5 from "../../assets/img/Cloth13.jpg";
 import Foot from "../../components/footer";
 import Card from "../../components/Card";
 import Divider from "../../components/divider";
-import Clothes from "../../components/Clothes";
 import Carousel from "../../components/Carousel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-//import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Chat from "../../components/Chat";
+
 const Home = () => {
   const [card1Products, setcard1Product] = useState([
     {
@@ -72,59 +68,27 @@ const Home = () => {
       discount: 1500,
     },
   ]);
-  const [tilesProducts, settilesProduct] = useState([
-    {
-      id: 1,
-      imgSrc: Tiles1,
-      label: "baby care",
-    },
-    {
-      id: 2,
-      imgSrc: Tiles2,
-      label: "Boy shoes",
-    },
-    {
-      id: 3,
-      imgSrc: Tiles3,
-      label: "girl shoes",
-    },
-    {
-      id: 4,
-      imgSrc: Tiles4,
-      label: "school ",
-    },
-    {
-      id: 5,
-      imgSrc: Tiles2,
-      label: "baby care",
-    },
-    {
-      id: 6,
-      imgSrc: Tiles1,
-      label: "baby care",
-    },
-    {
-      id: 7,
-      imgSrc: Tiles4,
-      label: "baby care",
-    },
-    {
-      id: 8,
-      imgSrc: Tiles5,
-      label: "baby care",
-    },
-  ]);
-  const det = useSelector((state) => state.userDetailsReducer);
-  console.log(det);
 
+  const [categories, setCategories] = useState([]);
+  const det = useSelector((state) => state.userDetailsReducer);
+
+  const getCategories = async () => {
+    const res = await axios.get("http://localhost:4000/api/v1/category");
+    const {
+      data: { response },
+    } = res;
+    setCategories(response);
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
   return (
     <div>
       <Nav />
-
-      {/* <img src={Sale} alt="logo" width={"100%"} /> */}
       <Carousel />
       <Divider />
-
+      <Chat />
       <div className="container">
         <div className="row">
           {featureProducts.map(({ id, imgSrc, price, discount, name }) => {
@@ -148,11 +112,11 @@ const Home = () => {
       <div>
         <h2 className="text-center">SHOP BY CATEGORY</h2>
         <div className="row w-100">
-          {tilesProducts.map(({ id, imgSrc, label }) => {
+          {categories.map(({ _id, image, name }) => {
             return (
               <div className="col-3">
                 <div className="my-3">
-                  <Tiles key={id} imgSrc={imgSrc} label={label} />
+                  <Tiles key={_id} imgSrc={image} label={name} />
                 </div>
               </div>
             );
@@ -174,6 +138,7 @@ const Home = () => {
         </div>
       </div>
       <Divider />
+
       <Foot />
     </div>
   );

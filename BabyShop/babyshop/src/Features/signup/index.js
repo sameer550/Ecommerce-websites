@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Button from "../../components/button";
 import Nav from "../../components/nabvar";
 import Foot from "../../components/footer";
@@ -33,9 +33,10 @@ const Signup = () => {
       errors.password = "Password is required!";
     } else if (values.password.length < 4) {
       errors.password = "Password must be more 4 characters";
-    } else if (values.password.length > 10) {
-      errors.password = "Password cannot be exceed more than 10 characters";
     }
+    //else if (values.password.length > 10) {
+    //   errors.password = "Password cannot be exceed more than 10 characters";
+    // }
     if (!values.firstName) {
       errors.firstName = "This must been filled";
     }
@@ -55,23 +56,18 @@ const Signup = () => {
     //     "Content-type": "application/json; charset=UTF-8",
     //   },
     // })
-
-    axios
-      .post("http://localhost:4000/api/v1/auth/signup", createUser)
-      .then((response) => {
-        console.log(response);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    if (localStorage.getItem("loginUser") !== null) {
-      navigate("/");
+    if (Object.keys(formErrors).length === 0) {
+      axios
+        .post("http://localhost:4000/api/v1/auth/signup", createUser)
+        .then((response) => {
+          console.log(response);
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, []);
+  };
 
   return (
     <>
@@ -125,8 +121,8 @@ const Signup = () => {
 
                 <div className="mb-3">
                   <Button
-                    text={"Create an account"}
-                    buttonColor={"primaryColor"}
+                    text="Create an account"
+                    buttonColor="primaryColor"
                     onclick={buttonClick}
                   />
                 </div>

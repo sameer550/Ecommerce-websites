@@ -1,0 +1,9 @@
+.footer-logo {
+  width: 45px;
+  height: 45px;
+}
+.customer-help {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+}

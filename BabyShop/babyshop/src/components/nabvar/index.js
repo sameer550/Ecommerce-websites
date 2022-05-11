@@ -3,13 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../button";
 import "./style.css";
 import Logo from "../../assets/img/logo.png";
-import LoginImg from "../../assets/img/login.png";
 import { useSelector } from "react-redux";
+import { userDetails1 } from "../../Redux/Actions/userDetails.action";
+import { useDispatch } from "react-redux";
 const Nav = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.userDetailsReducer);
+  console.log("user", user);
+  const dispatch = useDispatch();
   const logoutButton = () => {
     localStorage.removeItem("persist:user");
+    dispatch(
+      userDetails1({
+        name: "",
+        email: "",
+        id: "",
+      })
+    );
     navigate("/");
   };
 
@@ -39,15 +49,35 @@ const Nav = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                {user.name === "" ? (
+                {user.name === "" && (
                   <>
                     <Link className="nav-link" to="/login">
                       Login
                     </Link>
                   </>
-                ) : (
-                  <></>
                 )}
+              </li>
+              <li className="nav-item cat">
+                <div className="dropdown">
+                  category
+                  <ul className="dropdown-menu">
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Action
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Another action
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Something else here
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
             <form className="d-flex search-bar">
@@ -57,10 +87,10 @@ const Nav = () => {
                 placeholder="Search"
                 aria-label="Search"
               />
-              <Button text={"Search"} buttonColor={"primaryColor"} />
+              <Button text="Search" buttonColor="primaryColor" />
             </form>
           </div>
-          {user.name !== "" ? (
+          {user.name !== "" && (
             <>
               {/* <div className="dropdown">
                 <div className="dropbtn">
@@ -73,30 +103,31 @@ const Nav = () => {
                 </div>
               </div> */}
 
-              <div class="dropdown">
+              <div className="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
+                  className="btn btn-secondary dropdown-toggle"
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  buttonColor={"primaryColor"}
+                  buttonColor="primaryColor"
                 >
                   {user.name}
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                >
                   <li>
                     <div className="dropdown-content">
-                      <a className="btnLogout" onClick={logoutButton}>
+                      <button className="btnLogout" onClick={logoutButton}>
                         Logout
-                      </a>
+                      </button>
                     </div>
                   </li>
                 </ul>
               </div>
             </>
-          ) : (
-            <></>
           )}
         </div>
       </nav>

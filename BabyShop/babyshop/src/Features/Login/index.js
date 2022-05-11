@@ -1,12 +1,12 @@
 import "./style.css";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Nav from "../../components/nabvar";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 import Foot from "../../components/footer";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userDetails1 } from "../../Redux/Actions/userDetails.action";
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,12 +37,12 @@ const Login = () => {
     setFormErrors(validate(userDetails));
     let email = userDetails.email;
     let password = userDetails.password;
-    if (email == "" || password == "") {
+    if (email === "" || password === "") {
     } else {
       axios
         .post(`http://localhost:4000/api/v1/auth/login`, userDetails)
         .then((response) => {
-          console.log(response);
+          console.log("response", response);
           const {
             data: { firstName, email, _id },
           } = response.data;
@@ -112,7 +112,6 @@ const Login = () => {
                     Create an account
                   </Link>
                 </div>
-                {/* <div className="alert alert-danger" role="alert"></div> */}
               </div>
             </div>
           </div>
