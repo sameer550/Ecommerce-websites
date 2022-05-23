@@ -4,6 +4,7 @@ const userRegistrationRoutes = require("./routes/userRegistration.routes");
 const categoryRoutes = require("./routes/category.routes");
 
 const bodyParser = require("body-parser");
+const session = require("express-session");
 // const cors = require("cors");
 
 // var cors = require("cors");
@@ -29,6 +30,9 @@ mongoose.connect(
 // view engine setup
 
 app.use(bodyParser.json());
+app.use(
+  session({ secret: "babyshop", resave: false, saveUninitialized: false })
+);
 app.use("/api/v1/auth", userRegistrationRoutes.router);
 app.use("/api/v1/category", categoryRoutes.router);
 

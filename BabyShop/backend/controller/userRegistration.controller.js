@@ -1,6 +1,8 @@
 const { default: axios } = require("axios");
 const userRegistration = require("../services/userRegistration.service");
-exports.createUser = async (req, res) => {
+const bcrypt = require("bcryptjs");
+
+exports.createUser = async (req, res, next) => {
   const body = req.body;
   console.log("body", req.body);
   console.log("new body");
@@ -11,7 +13,11 @@ exports.createUser = async (req, res) => {
     })
     .catch((error) => {
       console.log("error", error);
-      res.send({ data: "some error occured" });
+      if (error.statusCode) {
+        res.status(409).send({ message: error.message });
+      } else {
+        res.send({ message: "something went wrong " });
+      }
     });
 };
 exports.getUserByEmail = async (req, res) => {
@@ -25,16 +31,23 @@ exports.getUserByEmail = async (req, res) => {
   //   });
 };
 exports.getAllUsers = async (req, res) => {
+  console.log(req.session.isLoggedIn);
+  req.session.isLoggedIn = true;
   userRegistration
     .getByEmail(req.body.email, req.body.password)
-    .then((response) => {
+    .then(async (response) => {
       console.log("RESPONSE", response);
-      if (!response) {
-        res.status(404).send({ message: "Incorrect username or password" });
-      } else {
-        res.status(200).send({ data: response });
+      if (response) {
+        const chkPassword = await bcrypt.compare(
+          req.body.password,
+          response.password
+        );
+        console.log("comparePassword", chkPassword);
+        if (chkPassword) {
+          res.status(200).send({ data: response });
+        }
       }
-      // res.send({})
+      res.status(404).send({ message: "Incorrect username or password" });
     })
     .catch((error) => {
       res.send({ message: "Something went wrong " });
